@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+*.user
+work_RBTact/RabbitAction/Debug/
+*.log
+work_RBTact/RabbitAction/Release/
