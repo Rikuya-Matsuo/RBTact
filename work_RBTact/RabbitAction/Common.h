@@ -1,26 +1,29 @@
+//　リファクタリング済み
 #pragma once
 #include <math.h>
 #include "Dxlib.h"
 
+//絶対値の取得
 #define ABUSOLUTE_VALUE(number) (number > 0) ? number : -number
+//ベクトルの長さの取得
 #define GET_VECTOR_LENGTH(x, y) pow((x * x) + (y * y), 0.5)
+//ベクトルの内積の取得
 #define INNER_PRODUCT(vx1, vy1, vx2, vy2) (vx1 * vx2 + vy1 * vy2)
 
-const int WINDOW_WIDTH = 1920;
-const int WINDOW_HEIGHT = 1080;
-//const int BGM_VOLUME = 0;
-const int BGM_VOLUME = 175;
-const float DRAW_MARGIN = 150.0f;
+const int WINDOW_WIDTH = 1920;		//画面の横幅
+const int WINDOW_HEIGHT = 1080;		//画面の縦幅
+const int BGM_VOLUME = 175;			//BGMの音量
+const float DRAW_MARGIN = 150.0f;	//描画の余裕。画面外でもこの範囲なら描画する。
 
 class ProgramControl
 {
 public:
-	int replayCnt = 0;
-	bool prevEnter = false;
+	int replayCnt = 0;			//ゲーム起動時から何回リプレイされたか。これによってロード回数を減らす。
+	bool prevEnter = false;		//前のフレームでエンターキーが押されたかのフラグ
 
-	bool CheckHitGoNext(XINPUT_STATE *pad);
-	bool CheckHitEsc();
-	bool CheckHitDebugCmd(XINPUT_STATE *pad);
+	bool CheckHitGoNext(XINPUT_STATE *pad);				//次の画面に移行する操作がされたかのチェック
+	bool CheckHitEsc();									//エスケープが押されたかのチェック
+	bool CheckHitDebugCommand(XINPUT_STATE *pad);		//デバッグコマンドが押されたかのチェック
 };
 
 //bool型配列のすべての要素をtrueかfalseにする
@@ -61,6 +64,6 @@ class Sky;
 class Boss;
 class Item;
 class Coin;
-class CoinControl;
-class CoinMaster;
+class CoinGroup;
+class CoinGroupManager;
 class HitChecker;

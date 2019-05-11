@@ -382,7 +382,7 @@ void HitChecker::CheckHitPlayerItem(Player * player, Item * item)
 	}
 }
 
-void HitChecker::CheckHitPlayerCoin(Player * player, CoinMaster *coinMaster, Effect *effect)
+void HitChecker::CheckHitPlayerCoin(Player * player, CoinGroupManager *coinMaster, Effect *effect)
 {
 	for (int i = 0; i < coinMaster->COIN_AREA_MASS; i++)
 	{

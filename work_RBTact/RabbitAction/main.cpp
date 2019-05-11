@@ -8,8 +8,8 @@
 #include "Effect.h"
 #include "Item.h"
 #include "Coin.h"
-#include "CoinControl.h"
-#include "CoinMaster.h"
+#include "CoinGroup.h"
+#include "CoinGroupManager.h"
 #include "player.h"
 #include "Enemy.h"
 #include "EnemyControl.h"
@@ -93,7 +93,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     Sky sky;
 	UI ui;
 	EnemyControl enemyCtrl;
-	CoinMaster coinMaster;
+	CoinGroupManager coinMaster;
 	Item *item_p;
 	item_p = new Item;
 	Effect *effect_p;
@@ -146,7 +146,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			//アップデート
 			if (stateFlags.state[TITLE][1])
 			{
-				if (programControl.CheckHitDebugCmd(&pad))
+				if (programControl.CheckHitDebugCommand(&pad))
 				{
 					WaitTimer(0);
 				}
@@ -344,7 +344,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				effect_p->UpdateSmoke(&enemyCtrl);
 
 				//コマンドでブレイクポイントへ（デバッグ用）
-				if (programControl.CheckHitDebugCmd(&pad))
+				if (programControl.CheckHitDebugCommand(&pad))
 				{
 					WaitTimer(0);
 				}
@@ -517,7 +517,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				}
 
 				//コマンドでブレイクポイントへ（デバッグ用）
-				if (programControl.CheckHitDebugCmd(&pad))
+				if (programControl.CheckHitDebugCommand(&pad))
 				{
 					WaitTimer(0);
 				}
@@ -596,7 +596,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				ScreenFlip();
 
 				//デバッグ用
-				if (programControl.CheckHitDebugCmd(&pad))
+				if (programControl.CheckHitDebugCommand(&pad))
 				{
 					WaitTimer(0);
 				}

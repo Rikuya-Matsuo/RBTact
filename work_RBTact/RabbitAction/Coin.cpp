@@ -5,7 +5,7 @@ void Coin::Update(Camera * camera)
 	CheckInSideScreen(camera);
 }
 
-void Coin::Obtained(Player * player, Effect *effect, CoinControl *coinCtrl)
+void Coin::Obtained(Player * player, Effect *effect, CoinGroup *coinCtrl)
 {
 	player->score += ADDED_SCORE;
 	exist = false;
