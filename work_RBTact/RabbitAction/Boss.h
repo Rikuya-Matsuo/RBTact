@@ -29,14 +29,14 @@ public:
 	int angerGraph[PARTS_MASS_ALL];
 	int angerTime;									//「攻撃無駄だよ画像」に差し替えた時間を格納
 	int appearTime;									//出現した時間を格納
-	int spritTime;									//分裂するタイミングを計るために使用する時間の変数
-	int allSpritTime;								//すべてのパーツが分離した時間を格納
+	int splitTime;									//分裂するタイミングを計るために使用する時間の変数
+	int allSplitTime;								//すべてのパーツが分離した時間を格納
 	int existEnemyPartsMass;						//分裂後のエネミーが画面上に存在する数
 	int emissionInTheStep;							//その排出段階において何体排出したか
-	int spritTimes;									//分裂した回数
+	int splitTimes;									//分裂した回数
 	int emissionMass[EMISSION_STEP];				//目標とするエネミーの排出量
 	float x, y;										//座標
-	bool partsSpritFlag[PARTS_MASS_ALL];			//その番号のパーツが分裂したかのフラグ
+	bool partsSplitFlag[PARTS_MASS_ALL];			//その番号のパーツが分裂したかのフラグ
 	bool angerFlag;									//怒り画像に差し替えるときtrue
 	bool emission;									//分裂すべき時にtrue
 	bool allEmission;								//すべてのボス所属エネミーを排出したらtrueに

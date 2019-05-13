@@ -296,8 +296,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					//ボスタイプエネミー
 					for (int i = 0; i < boss_p->PARTS_MASS_ALL; i++)
 					{
-						if ((bossParts_p[i]->CheckInsideScreen(&camera, &map) && !boss_p->partsSpritFlag[i]) ||
-						boss_p->partsSpritFlag[i])
+						if ((bossParts_p[i]->CheckInsideScreen(&camera, &map) && !boss_p->partsSplitFlag[i]) ||
+						boss_p->partsSplitFlag[i])
 						{
 							hitChk.CheckHitEnemyBlock(bossParts_p[i], &enemyCtrl, &map);
 						}

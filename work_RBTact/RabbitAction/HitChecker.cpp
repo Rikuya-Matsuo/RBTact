@@ -25,7 +25,7 @@ bool HitChecker::CheckHitPlayerEnemy(Player *player, Enemy **enemy, Boss *boss, 
 				if (!player->hitEnemyFlag)
 				{
 					//当たったエネミーがボスタイプで、かつまだ排出されていない個体のとき、強制的にプレイヤー側がダメージ
-					if (enemy[i]->movePattern == enemyCtrl->BOSS && !boss->partsSpritFlag[i])
+					if (enemy[i]->movePattern == enemyCtrl->BOSS && !boss->partsSplitFlag[i])
 					{
 						player->DamageFromBoss(enemy[i]->x, effect);
 						boss->SetAngerFlagTrue();
@@ -83,7 +83,7 @@ bool HitChecker::CheckHitPlayerEnemy(Player *player, Enemy **enemy, Boss *boss, 
 				}
 
 				player->Damage(hitLeftsideOfEnemy, effect);
-				if (enemy[i]->movePattern == enemyCtrl->BOSS && !boss->partsSpritFlag[i])
+				if (enemy[i]->movePattern == enemyCtrl->BOSS && !boss->partsSplitFlag[i])
 				{
 					boss->SetAngerFlagTrue();
 				}
@@ -333,7 +333,7 @@ void HitChecker::CheckHitEnemyBlock(Enemy * enemy, EnemyControl * enemyCtrl, Map
 
 void HitChecker::CheckHitEnemyBoss(Enemy * enemy, Boss * boss)
 {
-	if (enemy->x + enemy->w > boss->x && boss->partsSpritFlag[enemy->id])
+	if (enemy->x + enemy->w > boss->x && boss->partsSplitFlag[enemy->id])
 	{
 		enemy->HitWall(boss->x, false);
 	}

@@ -12,7 +12,7 @@ void Boss::Init(Map *map, int replayCnt)
 	angerFlag = false;
 	for (int i = 0; i < PARTS_MASS_ALL; i++)
 	{
-		partsSpritFlag[i] = false;
+		partsSplitFlag[i] = false;
 	}
 	emission = true;
 	allEmission = false;
@@ -21,7 +21,7 @@ void Boss::Init(Map *map, int replayCnt)
 	y = map->MAP_HIGHEST;
 	existEnemyPartsMass = 0;
 	emissionInTheStep = 0;
-	spritTimes = 0;
+	splitTimes = 0;
 	for (int i = 0; i < EMISSION_STEP; i++)
 	{
 		int mass;
@@ -79,7 +79,7 @@ void Boss::Init(Map *map, int replayCnt)
 		}
 		emissionMass[i] = mass;
 	}
-	spritTime = GetNowCount();
+	splitTime = GetNowCount();
 }
 
 void Boss::Update(Enemy **enemy, Game *game, Map *map)
@@ -97,15 +97,15 @@ void Boss::Update(Enemy **enemy, Game *game, Map *map)
 	}
 
 	//ŽžŠÔ‚É‚æ‚éðŒ && ‚·‚×‚Äo‚µØ‚Á‚Ä‚¢‚È‚¢ && ”ro‚µ‚½”‚ª”ro‚·‚×‚«”‚É’B‚µ‚Ä‚¢‚È‚¢ && ”ro‚Ìƒ^ƒCƒ~ƒ“ƒO‚Å‚ ‚é
-	if ((game->nowTime - spritTime) > SPRIT_COUNT && !allEmission &&
-		existEnemyPartsMass < emissionMass[spritTimes] && emission)
+	if ((game->nowTime - splitTime) > SPRIT_COUNT && !allEmission &&
+		existEnemyPartsMass < emissionMass[splitTimes] && emission)
 	{
 		for (int i = 0; i < PARTS_MASS_ALL; i++)
 		{
 			//‚Ü‚¾”ro‚³‚ê‚Ä‚¢‚È‚¢ŒÂ‘Ì‚ð‘–¸
-			if (!partsSpritFlag[i])
+			if (!partsSplitFlag[i])
 			{
-				partsSpritFlag[i] = true;
+				partsSplitFlag[i] = true;
 				enemy[i]->velocityX = enemy[i]->POPUP_VELOCITY_X;
 				enemy[i]->velocityY = enemy[i]->POPUP_VELOCITY_Y;
 
@@ -115,24 +115,24 @@ void Boss::Update(Enemy **enemy, Game *game, Map *map)
 				existEnemyPartsMass++;
 				emissionInTheStep++;
 				//”ro‚µ‚½—Ê‚ª”ro‚·‚×‚«—ÊˆÈã‚É‚È‚Á‚½‚Æ‚«
-				if (emissionInTheStep >= emissionMass[spritTimes])
+				if (emissionInTheStep >= emissionMass[splitTimes])
 				{
 					emission = false;
 					emissionInTheStep = 0;
-					spritTimes++;
-					if (spritTimes >= EMISSION_STEP)
+					splitTimes++;
+					if (splitTimes >= EMISSION_STEP)
 					{
 						allEmission = true;
-						allSpritTime = GetNowCount();
+						allSplitTime = GetNowCount();
 					}
 				}
 				break;
 			}
 		}
-		spritTime = GetNowCount();
+		splitTime = GetNowCount();
 	}
 
-	if (allEmission && (game->nowTime - allSpritTime) > CLOSE_COUNT && !CheckEnemyOnBossArea(enemy))
+	if (allEmission && (game->nowTime - allSplitTime) > CLOSE_COUNT && !CheckEnemyOnBossArea(enemy))
 	{
 		game->UpdateCloseBossArea(map);
 	}
@@ -175,7 +175,7 @@ void Boss::Draw(Camera *camera)
 	{
 		for (int lx = 0; lx < PARTS_MASS_X; lx++)
 		{
-			if (!partsSpritFlag[lx + (ly * PARTS_MASS_X)])
+			if (!partsSplitFlag[lx + (ly * PARTS_MASS_X)])
 			{
 				int graphHandle = (angerFlag) ? angerGraph[lx + (ly * PARTS_MASS_X)] : bossGraph[lx + (ly * PARTS_MASS_X)];
 
