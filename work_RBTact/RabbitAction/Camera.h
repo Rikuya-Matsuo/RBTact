@@ -21,7 +21,7 @@ public:
 	float cameraOffsetX;						//ステージスタートからカメラをどのくらい水平方向にずらしたか
 	float cameraOffsetY;						//ステージスタートからカメラをどのくらい鉛直方向にずらしたか
 
-	void Init4Title();								//タイトル画面での初期化
+	void InitForTitle();							//タイトル画面での初期化
 	void Init();									//ゲーム画面での初期化
 	void AddCameraOffsetX(Player *player);			//cameraOffsetXに値を追加する関数。
 	void ScrollScreenX(Player *player);				//メインではこちらを呼ぶ。カプセル化は後の課題。

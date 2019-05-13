@@ -1,6 +1,6 @@
 #include "Player.h"
 
-void Player::Init4Title()
+void Player::InitForTitle()
 {
 	Load();
 	x = TITLE_POSITION_X;
@@ -71,7 +71,7 @@ void Player::Init(int replayCnt, Game *game)
 	prevKickCmd = false;
 }
 
-void Player::Init4Result(Effect *effect)
+void Player::InitForResult(Effect *effect)
 {
 	x = WINDOW_WIDTH / 2 - w / 2;
 	y = WINDOW_HEIGHT / 2;

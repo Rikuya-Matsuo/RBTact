@@ -591,7 +591,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					if (game_p->gameClear)
 					{
 						camera.Init();
-						player_p->Init4Result(effect_p);
+						player_p->InitForResult(effect_p);
 					}
 
                     SwitchFlag(&stateFlags.state[RESULT][0], &stateFlags.state[RESULT][1]);
