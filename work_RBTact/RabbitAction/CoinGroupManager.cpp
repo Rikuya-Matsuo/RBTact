@@ -2,14 +2,14 @@
 
 void CoinGroupManager::Init()
 {
-	coinCtrl = new CoinGroup[COIN_AREA_MASS];
+	coinGroup = new CoinGroup[COIN_AREA_MASS];
 
 	FILE *r;
 	fopen_s(&r, FILE_NAME, "r");
 
 	for (int i = 0; i < COIN_AREA_MASS; i++)
 	{
-		coinCtrl[i].Init(r, i);
+		coinGroup[i].Init(r, i);
 	}
 
 	fclose(r);
@@ -19,7 +19,7 @@ void CoinGroupManager::Update(Camera *camera)
 {
 	for (int i = 0; i < COIN_AREA_MASS; i++)
 	{
-		coinCtrl[i].Update(camera);
+		coinGroup[i].Update(camera);
 	}
 }
 
@@ -27,24 +27,24 @@ void CoinGroupManager::Draw(Camera *camera)
 {
 	for (int i = 0; i < COIN_AREA_MASS; i++)
 	{
-		coinCtrl[i].Draw(camera);
+		coinGroup[i].Draw(camera);
 	}
 }
 
 void CoinGroupManager::DeletePointers()
 {
-	if (coinCtrl != NULL)
+	if (coinGroup != NULL)
 	{
 		for (int i = 0; i < COIN_AREA_MASS; i++)
 		{
-			for (int j = 0; j < coinCtrl[i].coinMassY; j++)
+			for (int j = 0; j < coinGroup[i].coinMassY; j++)
 			{
-				delete[]coinCtrl[i].coinArray[j];
-				coinCtrl[i].coinArray[j] = NULL;
+				delete[]coinGroup[i].coinArray[j];
+				coinGroup[i].coinArray[j] = NULL;
 			}
 		}
 
-		delete[]coinCtrl;
-		coinCtrl = NULL;
+		delete[]coinGroup;
+		coinGroup = NULL;
 	}
 }

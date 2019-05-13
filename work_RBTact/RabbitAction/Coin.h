@@ -16,6 +16,6 @@ public:
 	bool inScreen;		//画面上に存在しているか。要するに描画するかどうか
 
 	void Update(Camera *camera);												//更新。
-	void Obtained(Player *player, Effect *effect, CoinGroup *coinCtrl);		//入手される
+	void OnObtain(Player *player, Effect *effect, CoinGroup *coinGroup);			//入手される
 	bool CheckInSideScreen(Camera *camera);										//画面内に存在しているかのチェック
 };

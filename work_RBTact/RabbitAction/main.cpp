@@ -1,3 +1,5 @@
+#define DEBUG
+
 #include "Dxlib.h"
 #include "Common.h"
 #include "Phase.h"
@@ -294,8 +296,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					//ボスタイプエネミー
 					for (int i = 0; i < boss_p->PARTS_MASS_ALL; i++)
 					{
-						if ((bossParts_p[i]->CheckInsideScreen(&camera, &map) && !boss_p->sprit[i]) ||
-						boss_p->sprit[i])
+						if ((bossParts_p[i]->CheckInsideScreen(&camera, &map) && !boss_p->partsSpritFlag[i]) ||
+						boss_p->partsSpritFlag[i])
 						{
 							hitChk.CheckHitEnemyBlock(bossParts_p[i], &enemyCtrl, &map);
 						}
@@ -343,11 +345,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				//撃破されたエネミーの煙エフェクトの更新
 				effect_p->UpdateSmoke(&enemyCtrl);
 
+
+#ifdef DEBUG
 				//コマンドでブレイクポイントへ（デバッグ用）
 				if (programControl.CheckHitDebugCommand(&pad))
 				{
 					WaitTimer(0);
 				}
+
+#endif DEBUG
 
 				//バウンド処理中、何らかの原因で床がなくなり、そのまま上へ上って行ってしまう、
 				//いわゆる昇天バグを防ぐため、床もエネミーも踏んでいないときには重力を有効化
@@ -516,11 +522,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					}
 				}
 
+#ifdef DEBUG
+
 				//コマンドでブレイクポイントへ（デバッグ用）
 				if (programControl.CheckHitDebugCommand(&pad))
 				{
 					WaitTimer(0);
 				}
+
+#endif DEBUG
 
 				//撃破されたエネミーの上に煙エフェクトを描画
 				effect_p->DrawSmokeEffect(&camera);
@@ -595,11 +605,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 				ScreenFlip();
 
+#ifdef DEBUG
+
 				//デバッグ用
 				if (programControl.CheckHitDebugCommand(&pad))
 				{
 					WaitTimer(0);
 				}
+
+#endif DEBUG
 
                 if (programControl.CheckHitGoNext(&pad))
                 {

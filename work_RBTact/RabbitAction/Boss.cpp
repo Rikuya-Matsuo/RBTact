@@ -12,7 +12,7 @@ void Boss::Init(Map *map, int replayCnt)
 	angerFlag = false;
 	for (int i = 0; i < PARTS_MASS_ALL; i++)
 	{
-		sprit[i] = false;
+		partsSpritFlag[i] = false;
 	}
 	emission = true;
 	allEmission = false;
@@ -21,7 +21,7 @@ void Boss::Init(Map *map, int replayCnt)
 	y = map->MAP_HIGHEST;
 	existEnemyPartsMass = 0;
 	emissionInTheStep = 0;
-	spritMass = 0;
+	spritTimes = 0;
 	for (int i = 0; i < EMISSION_STEP; i++)
 	{
 		int mass;
@@ -98,14 +98,14 @@ void Boss::Update(Enemy **enemy, Game *game, Map *map)
 
 	//ŽžŠÔ‚É‚æ‚éðŒ && ‚·‚×‚Äo‚µØ‚Á‚Ä‚¢‚È‚¢ && ”ro‚µ‚½”‚ª”ro‚·‚×‚«”‚É’B‚µ‚Ä‚¢‚È‚¢ && ”ro‚Ìƒ^ƒCƒ~ƒ“ƒO‚Å‚ ‚é
 	if ((game->nowTime - spritTime) > SPRIT_COUNT && !allEmission &&
-		existEnemyPartsMass < emissionMass[spritMass] && emission)
+		existEnemyPartsMass < emissionMass[spritTimes] && emission)
 	{
 		for (int i = 0; i < PARTS_MASS_ALL; i++)
 		{
 			//‚Ü‚¾”ro‚³‚ê‚Ä‚¢‚È‚¢ŒÂ‘Ì‚ð‘–¸
-			if (!sprit[i])
+			if (!partsSpritFlag[i])
 			{
-				sprit[i] = true;
+				partsSpritFlag[i] = true;
 				enemy[i]->velocityX = enemy[i]->POPUP_VELOCITY_X;
 				enemy[i]->velocityY = enemy[i]->POPUP_VELOCITY_Y;
 
@@ -115,12 +115,12 @@ void Boss::Update(Enemy **enemy, Game *game, Map *map)
 				existEnemyPartsMass++;
 				emissionInTheStep++;
 				//”ro‚µ‚½—Ê‚ª”ro‚·‚×‚«—ÊˆÈã‚É‚È‚Á‚½‚Æ‚«
-				if (emissionInTheStep >= emissionMass[spritMass])
+				if (emissionInTheStep >= emissionMass[spritTimes])
 				{
 					emission = false;
 					emissionInTheStep = 0;
-					spritMass++;
-					if (spritMass >= EMISSION_STEP)
+					spritTimes++;
+					if (spritTimes >= EMISSION_STEP)
 					{
 						allEmission = true;
 						allSpritTime = GetNowCount();
@@ -146,7 +146,7 @@ void Boss::Update(Enemy **enemy, Game *game, Map *map)
 	}
 }
 
-void Boss::Anger()
+void Boss::SetAngerFlagTrue()
 {
 	angerFlag = true;
 	angerTime = GetNowCount();
@@ -175,7 +175,7 @@ void Boss::Draw(Camera *camera)
 	{
 		for (int lx = 0; lx < PARTS_MASS_X; lx++)
 		{
-			if (!sprit[lx + (ly * PARTS_MASS_X)])
+			if (!partsSpritFlag[lx + (ly * PARTS_MASS_X)])
 			{
 				int graphHandle = (angerFlag) ? angerGraph[lx + (ly * PARTS_MASS_X)] : bossGraph[lx + (ly * PARTS_MASS_X)];
 
