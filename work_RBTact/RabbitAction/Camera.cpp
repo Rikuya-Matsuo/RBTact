@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-void Camera::Init4Title()
+void Camera::InitForTitle()
 {
 	cameraOffsetX = TITLE_X;
 	cameraOffsetY = TITLE_Y;

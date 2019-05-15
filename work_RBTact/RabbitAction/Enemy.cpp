@@ -124,7 +124,7 @@ void Enemy::UpdateBossType(Enemy **enemy, Boss * boss, Player *player, Effect *e
 		{
 			int id = j + i * boss->PARTS_MASS_X;
 
-			if (!boss->sprit[id])
+			if (!boss->partsSplitFlag[id])
 			{
 				enemy[id]->x = boss->x + j * boss->PARTS_SIZE_W * boss->GRAPH_EXTEND_RATE;
 				enemy[id]->y = boss->y + i * boss->PARTS_SIZE_H * boss->GRAPH_EXTEND_RATE;

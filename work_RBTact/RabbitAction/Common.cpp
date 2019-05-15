@@ -23,7 +23,7 @@ bool ProgramControl::CheckHitEsc()
 	return ret;
 }
 
-bool ProgramControl::CheckHitDebugCmd(XINPUT_STATE *pad)
+bool ProgramControl::CheckHitDebugCommand(XINPUT_STATE *pad)
 {
 	bool ret = false;
 	if ((CheckHitKey(KEY_INPUT_D) && CheckHitKey(KEY_INPUT_BACK)) || (pad->Buttons[XINPUT_BUTTON_RIGHT_THUMB]))

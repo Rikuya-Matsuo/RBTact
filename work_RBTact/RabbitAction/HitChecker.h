@@ -5,8 +5,8 @@
 #include "Enemy.h"
 #include "Map.h"
 #include "Item.h"
-#include "CoinMaster.h"
-#include "CoinControl.h"
+#include "CoinGroupManager.h"
+#include "CoinGroup.h"
 #include "Coin.h"
 
 class HitChecker
@@ -31,5 +31,5 @@ public:
 
 	void CheckHitPlayerItem(Player *player, Item *item);
 
-	void CheckHitPlayerCoin(Player *player, CoinMaster *coinMaster, Effect *effect);
+	void CheckHitPlayerCoin(Player *player, CoinGroupManager *coinMaster, Effect *effect);
 };

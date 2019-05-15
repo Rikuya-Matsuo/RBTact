@@ -25,10 +25,10 @@ bool HitChecker::CheckHitPlayerEnemy(Player *player, Enemy **enemy, Boss *boss, 
 				if (!player->hitEnemyFlag)
 				{
 					//当たったエネミーがボスタイプで、かつまだ排出されていない個体のとき、強制的にプレイヤー側がダメージ
-					if (enemy[i]->movePattern == enemyCtrl->BOSS && !boss->sprit[i])
+					if (enemy[i]->movePattern == enemyCtrl->BOSS && !boss->partsSplitFlag[i])
 					{
 						player->DamageFromBoss(enemy[i]->x, effect);
-						boss->Anger();
+						boss->SetAngerFlagTrue();
 						hitBoss = true;
 					}
 					else
@@ -83,9 +83,9 @@ bool HitChecker::CheckHitPlayerEnemy(Player *player, Enemy **enemy, Boss *boss, 
 				}
 
 				player->Damage(hitLeftsideOfEnemy, effect);
-				if (enemy[i]->movePattern == enemyCtrl->BOSS && !boss->sprit[i])
+				if (enemy[i]->movePattern == enemyCtrl->BOSS && !boss->partsSplitFlag[i])
 				{
-					boss->Anger();
+					boss->SetAngerFlagTrue();
 				}
 				contact = true;
 				//一度に複数の敵から攻撃は受けないためブレーク
@@ -333,7 +333,7 @@ void HitChecker::CheckHitEnemyBlock(Enemy * enemy, EnemyControl * enemyCtrl, Map
 
 void HitChecker::CheckHitEnemyBoss(Enemy * enemy, Boss * boss)
 {
-	if (enemy->x + enemy->w > boss->x && boss->sprit[enemy->id])
+	if (enemy->x + enemy->w > boss->x && boss->partsSplitFlag[enemy->id])
 	{
 		enemy->HitWall(boss->x, false);
 	}
@@ -382,26 +382,26 @@ void HitChecker::CheckHitPlayerItem(Player * player, Item * item)
 	}
 }
 
-void HitChecker::CheckHitPlayerCoin(Player * player, CoinMaster *coinMaster, Effect *effect)
+void HitChecker::CheckHitPlayerCoin(Player * player, CoinGroupManager *coinMaster, Effect *effect)
 {
 	for (int i = 0; i < coinMaster->COIN_AREA_MASS; i++)
 	{
-		for (int j = 0; j < coinMaster->coinCtrl[i].coinMassY; j++)
+		for (int j = 0; j < coinMaster->coinGroup[i].coinMassY; j++)
 		{
-			for (int k = 0; k < coinMaster->coinCtrl[i].coinMassX; k++)
+			for (int k = 0; k < coinMaster->coinGroup[i].coinMassX; k++)
 			{
-				if (coinMaster->coinCtrl[i].coinArray[j][k].inScreen)
+				if (coinMaster->coinGroup[i].coinArray[j][k].inScreen)
 				{
-					bool hit = (((player->x + player->w > coinMaster->coinCtrl[i].coinArray[j][k].x && player->x < coinMaster->coinCtrl[i].coinArray[j][k].x) ||
-						player->x > coinMaster->coinCtrl[i].coinArray[j][k].x && player->x < coinMaster->coinCtrl[i].coinArray[j][k].x + coinMaster->coinCtrl[i].coinW) &&
-						((player->y + player->h > coinMaster->coinCtrl[i].coinArray[j][k].y && player->y < coinMaster->coinCtrl[i].coinArray[j][k].y) ||
-							player->y > coinMaster->coinCtrl[i].coinArray[j][k].y && player->y < coinMaster->coinCtrl[i].coinArray[j][k].y + coinMaster->coinCtrl[i].coinH));
+					bool hit = (((player->x + player->w > coinMaster->coinGroup[i].coinArray[j][k].x && player->x < coinMaster->coinGroup[i].coinArray[j][k].x) ||
+						player->x > coinMaster->coinGroup[i].coinArray[j][k].x && player->x < coinMaster->coinGroup[i].coinArray[j][k].x + coinMaster->coinGroup[i].coinW) &&
+						((player->y + player->h > coinMaster->coinGroup[i].coinArray[j][k].y && player->y < coinMaster->coinGroup[i].coinArray[j][k].y) ||
+							player->y > coinMaster->coinGroup[i].coinArray[j][k].y && player->y < coinMaster->coinGroup[i].coinArray[j][k].y + coinMaster->coinGroup[i].coinH));
 
 					//プレイヤーとコインの当たり判定
-					if (hit && coinMaster->coinCtrl[i].coinArray[j][k].exist)
+					if (hit && coinMaster->coinGroup[i].coinArray[j][k].exist)
 					{
 						//参照するのはseなので、添え字は0でもダイジョーブ！（おバカ）
-						coinMaster->coinCtrl[i].coinArray[j][k].Obtained(player, effect, coinMaster->coinCtrl);
+						coinMaster->coinGroup[i].coinArray[j][k].OnObtain(player, effect, coinMaster->coinGroup);
 					}
 				}
 			}

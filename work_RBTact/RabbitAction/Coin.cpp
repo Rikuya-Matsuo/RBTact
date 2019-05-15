@@ -5,12 +5,12 @@ void Coin::Update(Camera * camera)
 	CheckInSideScreen(camera);
 }
 
-void Coin::Obtained(Player * player, Effect *effect, CoinControl *coinCtrl)
+void Coin::OnObtain(Player * player, Effect *effect, CoinGroup *coinGroup)
 {
 	player->score += ADDED_SCORE;
 	exist = false;
 	effect->coinEffTimeFlag = true;
-	PlaySoundMem(coinCtrl->se, DX_PLAYTYPE_BACK);
+	PlaySoundMem(coinGroup->se, DX_PLAYTYPE_BACK);
 }
 
 bool Coin::CheckInSideScreen(Camera * camera)

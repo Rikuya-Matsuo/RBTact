@@ -132,8 +132,8 @@
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Coin.cpp" />
-    <ClCompile Include="CoinControl.cpp" />
-    <ClCompile Include="CoinMaster.cpp" />
+    <ClCompile Include="CoinGroup.cpp" />
+    <ClCompile Include="CoinGroupManager.cpp" />
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -152,8 +152,8 @@
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Coin.h" />
-    <ClInclude Include="CoinControl.h" />
-    <ClInclude Include="CoinMaster.h" />
+    <ClInclude Include="CoinGroup.h" />
+    <ClInclude Include="CoinGroupManager.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="Enemy.h" />

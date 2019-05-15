@@ -71,9 +71,9 @@ public:
 	bool hitEnemyFlag;		//エネミーへの攻撃が成功したときtrueに
 	bool reverseDrawFlag;	//裏焼きするか否かのフラグ		true-->左向き　false-->右向き
 
-	void Init4Title();		//タイトル画面用の初期化関数
+	void InitForTitle();		//タイトル画面用の初期化関数
 	void Init(int replayCnt, Game *game);
-	void Init4Result(Effect *effect);
+	void InitForResult(Effect *effect);
 	void Load();
 	void UpdateControl(XINPUT_STATE *pad, Effect *effect, Game *game, ProgramControl *programCtrl);
 	void KickDirectionControl(XINPUT_STATE *pad);
