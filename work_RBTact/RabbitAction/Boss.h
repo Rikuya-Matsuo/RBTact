@@ -27,24 +27,24 @@ public:
 
 	int bossGraph[PARTS_MASS_ALL];
 	int angerGraph[PARTS_MASS_ALL];
-	int angerTime;						//「攻撃無駄だよ画像」に差し替えた時間を格納
-	int appearTime;						//出現した時間を格納
-	int spritTime;						//分裂するタイミングを計るために使用する時間の変数
-	int allSpritTime;					//すべてのパーツが分離した時間を格納
-	int existEnemyPartsMass;			//分裂後のエネミーが画面上に存在する数
-	int emissionInTheStep;				//その排出段階において何体排出したか
-	int spritMass;						//分裂した回数
-	int emissionMass[EMISSION_STEP];	//目標とするエネミーの排出量
-	float x, y;							//座標
-	bool sprit[PARTS_MASS_ALL];				//その番号のパーツが分裂したかのフラグ
-	bool angerFlag;							//怒り画像に差し替えるときtrue
-	bool emission;						//分裂すべき時にtrue
-	bool allEmission;					//すべてのボス所属エネミーを排出したらtrueに
-	bool alive;							//ボスが生きていればtrue
+	int angerTime;									//「攻撃無駄だよ画像」に差し替えた時間を格納
+	int appearTime;									//出現した時間を格納
+	int splitTime;									//分裂するタイミングを計るために使用する時間の変数
+	int allSplitTime;								//すべてのパーツが分離した時間を格納
+	int existEnemyPartsMass;						//分裂後のエネミーが画面上に存在する数
+	int emissionInTheStep;							//その排出段階において何体排出したか
+	int splitTimes;									//分裂した回数
+	int emissionMass[EMISSION_STEP];				//目標とするエネミーの排出量
+	float x, y;										//座標
+	bool partsSplitFlag[PARTS_MASS_ALL];			//その番号のパーツが分裂したかのフラグ
+	bool angerFlag;									//怒り画像に差し替えるときtrue
+	bool emission;									//分裂すべき時にtrue
+	bool allEmission;								//すべてのボス所属エネミーを排出したらtrueに
+	bool alive;										//ボスが生きていればtrue
 
 	void Init(Map *map, int replayCnt);					//初期化。
 	void Update(Enemy **enemy, Game *game, Map *map);	//更新。
-	void Anger();										//ボスの怒りフラグを立てる関数。同時にその時間も記録。
+	void SetAngerFlagTrue();							//ボスの怒りフラグを立てる関数。同時にその時間も記録。
 	bool CheckEnemyOnBossArea(Enemy **enemy);			//エネミーがボスエリア上にいるかどうかのチェック　true--->いる
 	void Draw(Camera *camera);							//描画。
 	void TimeOut(Game *game);							//制限時間が過ぎたときの処理

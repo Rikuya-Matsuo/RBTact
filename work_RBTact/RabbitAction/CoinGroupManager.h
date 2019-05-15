@@ -9,7 +9,7 @@ public:
 	static const int COIN_AREA_MASS = 3;				//コイン配置エリアの数
 	const char *FILE_NAME = "resourceTxt/coin.txt";		//コイン配置状況を書いてあるファイルの名前
 
-	CoinGroup *coinCtrl;
+	CoinGroup *coinGroup;
 
 	void Init();
 	void Update(Camera *camera);

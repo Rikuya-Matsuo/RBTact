@@ -12,8 +12,8 @@ bool Title::Init(int replayCnt, Player *player, Camera *camera, Map *map, Sky *s
 {
 	bool ret;
 
-	player->Init4Title();
-	camera->Init4Title();
+	player->InitForTitle();
+	camera->InitForTitle();
 	map->LoadChipGraph(replayCnt);
 	sky->Load(replayCnt);
 
@@ -230,7 +230,7 @@ void Title::ChangeDemo2Title(Player *player)
 	blackOutRate = 0;
 
 	//プレイヤーの状態を初期化
-	player->Init4Title();
+	player->InitForTitle();
 
 	//デモムービーのデータを読み直す
 	ReloadDemo();
