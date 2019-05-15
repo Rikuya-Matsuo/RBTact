@@ -280,7 +280,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				hitChk.CheckHitPlayerCoin(player_p, &coinMaster, effect_p);
 
 				//コインエフェクトの更新
-				if (effect_p->coinEffTimeFlag)
+				if (effect_p->coinEffectTimeFlag)
 				{
 					effect_p->UpdateCoinEffect();
 				}
@@ -457,7 +457,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					effect_p->DrawMeteoEffect(player_p, &camera);
 
 					//コイン獲得エフェクトの描画
-					if (effect_p->coinEffTimeFlag)
+					if (effect_p->coinEffectTimeFlag)
 					{
 						effect_p->DrawCoinEffect(player_p, &camera);
 					}

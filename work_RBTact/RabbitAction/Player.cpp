@@ -148,7 +148,7 @@ void Player::UpdateControl(XINPUT_STATE *pad, Effect *effect, Game *game, Progra
 					//上の結果、1がtrueなら0をfalseに
 					if (kickFlag[1])
 					{
-						effect->kickEffExtend = effect->DEFAULT_KICK_GRAPH_EXTEND_RATE;
+						effect->kickPrepareEffectExtend = effect->DEFAULT_KICK_GRAPH_EXTEND_RATE;
 						kickFlag[0] = false;
 					}
 					//0がtrueならキック準備の初期化
