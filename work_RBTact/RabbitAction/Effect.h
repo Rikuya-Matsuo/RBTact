@@ -54,24 +54,23 @@ public:
 	bool drawHitMeteoEffectFlag;							//表示するか否かのフラグ
 
 	//エネミーの被ダメージ時、プレイヤーHP0時に使うもの
-	int starEffect;
-	float starX[STAR_MAX_MASS];
-	float starY[STAR_MAX_MASS];
-	float starVelX[STAR_MAX_MASS];
-	float starVelY[STAR_MAX_MASS];
-	bool criticalEffectFlag;
+	int starEffect;							//エネミー被ダメージ時に使用する★の画像ハンドル
+	float starX[STAR_MAX_MASS];				//星の座標（ｘ）
+	float starY[STAR_MAX_MASS];				//星の座標（ｙ）
+	float starVelocityX[STAR_MAX_MASS];		//星の速度（ｘ）
+	float starVelocityY[STAR_MAX_MASS];		//星の速度（ｙ）
+	bool kickedEffectFlag;					//プレイヤーのキックを食らったかのフラグ
 
 	//プレイヤーHP0時に使うもの
-	int blackSqrGraph;
-	int gameOverTime;
-	int blackOutRate;
-	bool gameOverSetFlag;
+	int gameOverTime;			//プレイヤーのHPが0になった時間を格納
+	int blackOutRate;			//ブラックアウト演出の黒の透過率
+	bool gameOverSetFlag;		//プレイヤーのHPが0になったときにtrue。HP0かつこのフラグがfalse時にSetPlayerDown関数を呼び出すことで初期化（？）を行う
 
 	//エネミーのHPが０になったときに使うもの
 	int smokeEffect[10];
 	int smokeAnimNum[SMOKE_MAX_MASS];	//エフェクトのアニメーション番号
 	int smokeTimer[SMOKE_MAX_MASS];		//エフェクト描画に使うタイマー
-	int smokeNumber;	//エフェクトの番号。SMOKE_MAX_MASS分だけ描画を可能にするため。
+	int smokeNumber;					//エフェクトの番号。SMOKE_MAX_MASS分だけ描画を可能にするため。
 	float smokeX[SMOKE_MAX_MASS];
 	float smokeY[SMOKE_MAX_MASS];
 	bool smokeFlag[SMOKE_MAX_MASS];

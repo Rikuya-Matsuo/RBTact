@@ -120,24 +120,24 @@ void Effect::InitStarEffect(int replayCnt)
 	{
 		starX[i] = 0;
 		starY[i] = 0;
-		starVelX[i] = 0;
-		starVelY[i] = 0;
+		starVelocityX[i] = 0;
+		starVelocityY[i] = 0;
 	}
 }
 
 void Effect::SetRandomStarVelocities()
 {
-	for (int i = 0; i < ((criticalEffectFlag) ? STAR_MAX_MASS : STAR_NORMAL_MASS); i++)
+	for (int i = 0; i < ((kickedEffectFlag) ? STAR_MAX_MASS : STAR_NORMAL_MASS); i++)
 	{
-		starVelX[i] = (float)(GetRand(STAR_MAX_VELOCITY) - STAR_MAX_VELOCITY_OFFSET);
-		starVelY[i] = (float)(-GetRand(STAR_MAX_VELOCITY));
+		starVelocityX[i] = (float)(GetRand(STAR_MAX_VELOCITY) - STAR_MAX_VELOCITY_OFFSET);
+		starVelocityY[i] = (float)(-GetRand(STAR_MAX_VELOCITY));
 	}
 }
 
 void Effect::SetStarXY4Enemy(Enemy *enemy, Player *player)
 {
-	criticalEffectFlag = player->kickFlag[1];
-	for (int i = 0; i < ((criticalEffectFlag) ? STAR_MAX_MASS : STAR_NORMAL_MASS); i++)
+	kickedEffectFlag = player->kickFlag[1];
+	for (int i = 0; i < ((kickedEffectFlag) ? STAR_MAX_MASS : STAR_NORMAL_MASS); i++)
 	{
 		starX[i] = enemy->x + enemy->w / 2;
 		starY[i] = enemy->y;
@@ -147,18 +147,18 @@ void Effect::SetStarXY4Enemy(Enemy *enemy, Player *player)
 
 void Effect::UpdateStar()
 {
-	for (int i = 0; i < ((criticalEffectFlag) ? STAR_MAX_MASS : STAR_NORMAL_MASS); i++)
+	for (int i = 0; i < ((kickedEffectFlag) ? STAR_MAX_MASS : STAR_NORMAL_MASS); i++)
 	{
-		starX[i] += starVelX[i];
-		starVelY[i] += STAR_GRAVITY;
-		starY[i] += starVelY[i];
+		starX[i] += starVelocityX[i];
+		starVelocityY[i] += STAR_GRAVITY;
+		starY[i] += starVelocityY[i];
 	}
 }
 
 void Effect::DrawStarEffect(Camera * camera)
 {
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
-	for (int i = 0; i < ((criticalEffectFlag) ? STAR_MAX_MASS : STAR_NORMAL_MASS); i++)
+	for (int i = 0; i < ((kickedEffectFlag) ? STAR_MAX_MASS : STAR_NORMAL_MASS); i++)
 	{
 		DrawGraphF(starX[i] - camera->cameraOffsetX, starY[i] - camera->cameraOffsetY, starEffect, TRUE);
 	}
@@ -261,24 +261,22 @@ void Effect::DrawDamageEffect(Player *player, Camera * camera)
 
 void Effect::InitPlayerDown()
 {
-	blackSqrGraph = LoadGraph("effectImg/black32x32.png");
 	gameOverSetFlag = false;
 }
 
 void Effect::SetPlayerDown(Player * player)
 {
-	int i;
-	for (i = 0; i < STAR_MAX_MASS; i++)
+	for (int i = 0; i < STAR_MAX_MASS; i++)
 	{
 		//星エフェクトの位置をセット
 		starX[i] = player->x + player->w / 2;
 		starY[i] = player->y + player->h / 2;
 		//星エフェクトの飛ぶそれぞれの方向をセット
-		starVelX[i] = STAR_MAX_VELOCITY * cosf(i * (DX_PI_F * 2 / STAR_MAX_MASS));
-		starVelY[i] = STAR_MAX_VELOCITY * sinf(i * (DX_PI_F * 2 / STAR_MAX_MASS));
+		starVelocityX[i] = STAR_MAX_VELOCITY * cosf(i * (DX_PI_F * 2 / STAR_MAX_MASS));
+		starVelocityY[i] = STAR_MAX_VELOCITY * sinf(i * (DX_PI_F * 2 / STAR_MAX_MASS));
 	}
 
-	criticalEffectFlag = true;
+	kickedEffectFlag = true;
 	gameOverSetFlag = true;
 
 	gameOverTime = GetNowCount();
@@ -289,9 +287,9 @@ void Effect::UpdatePlayerDown(StateFlags *state, Game * game, Camera *camera)
 	int i;
 	for (i = 0; i < STAR_MAX_MASS; i++)
 	{
-		starVelY[i] += STAR_GRAVITY;
-		starX[i] += starVelX[i];
-		starY[i] += starVelY[i];
+		starVelocityY[i] += STAR_GRAVITY;
+		starX[i] += starVelocityX[i];
+		starY[i] += starVelocityY[i];
 	}
 
 	DrawStarEffect(camera);
@@ -307,7 +305,7 @@ void Effect::UpdatePlayerDown(StateFlags *state, Game * game, Camera *camera)
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, blackOutRate);
 
-	DrawExtendGraph(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, blackSqrGraph, FALSE);
+	DrawBox(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, GetColor(0, 0, 0), TRUE);
 
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
