@@ -58,6 +58,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		SRand(seed);
 
+#ifndef DEBUG
 		//プレイ回数記録データに日付を記入
 		FILE *a;
 		fopen_s(&a, "resourceTxt/playMass.txt", "a");
@@ -71,6 +72,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 			fclose(a);
 		}
+#endif
 	}
 
 	//ジョイパッドの設定(XBOX360コントローラー限定)
@@ -557,6 +559,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             {
                 if (result_p->Init(programControl.replayCnt))
                 {
+#ifndef DEBUG
 					result_p->LoadScore();
 					result_p->SaveScore(player_p->score);
 
@@ -573,6 +576,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 						fclose(a);
 					}
+#endif
 
 					StopSoundMem(game_p->normalBgm);
 					StopSoundMem(game_p->bossBgm);
