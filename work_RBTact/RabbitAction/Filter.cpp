@@ -23,7 +23,7 @@ void Filter::Draw(Sky *sky, Map *map, Player *player, Enemy **enemy, EnemyContro
 	eff->DrawMeteoEffect(player, camera);
 
 	//コイン獲得エフェクトの描画
-	if (eff->coinEffTimeFlag)
+	if (eff->coinEffectTimeFlag)
 	{
 		eff->DrawCoinEffect(player, camera);
 	}

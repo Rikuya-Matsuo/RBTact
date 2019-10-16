@@ -35,3 +35,6 @@ work_RBTact/RabbitAction/Debug/
 *.log
 work_RBTact/RabbitAction/Release/
 work_RBTact/.vs/
+work_RBTact/RabbitAction/Log.txt
+work_RBTact/RabbitAction/x64/
+work_RBTact/x64/

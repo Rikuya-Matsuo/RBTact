@@ -16,75 +16,74 @@ public:
 	const double DEFAULT_KICK_GRAPH_EXTEND_RATE = 1.0;		//エフェクトの表示倍率の初期値
 	const double INCRESE_EXTEND_MASS			= 1.0;		//エフェクトの表示倍率の変化量
 	const int MAX_KICK_EFFECT_EXTEND_RATE		= 40;		//エフェクトの表示倍率の限界値
-	//彗星キック関連固定値
-	static const int METEO_EFFECT_ANIMATION_MASS = 9;
-	static const int HIT_METEO_EFFECT_ANIMATION_MASS = 10;
+	//彗星キック（プレイヤーが炎を纏うキック）関連固定値
+	static const int METEO_EFFECT_ANIMATION_MASS = 9;			//彗星キックのアニメーションのコマ数
+	static const int HIT_METEO_EFFECT_ANIMATION_MASS = 10;		//彗星キックヒット時のエフェクトのアニメーションの数
 	const float METEO_EFFECT_START_DISTANCE = 250.0f;			//エフェクトの描画をする距離
 	const float HIT_METEO_EFFECT_OFFSET = 350.0f;				//爆発エフェクトをどのくらい大きくするか
-	const double METEO_EFFECT_EXTEND_RATE = 0.5;
+	const double METEO_EFFECT_EXTEND_RATE = 0.5;				//彗星エフェクトの画像の拡大率
 	//エネミー被ダメージ関連固定値
-	static const int STAR_MAX_MASS = 10;						//一度の被ダメージで使う星の最大数
-	const int STAR_NORMAL_MASS = 3;							//通常の踏み付け時に使う星の数
-	const int STAR_MAX_VELOCITY = 30;
-	const int STAR_MAX_VELOCITY_OFFSET = STAR_MAX_VELOCITY / 2;
-	const float STAR_GRAVITY = 1.5f;
+	static const int STAR_MAX_MASS = 10;								//一度の被ダメージで使う星の最大数
+	const int STAR_NORMAL_MASS = 3;										//通常の踏み付け時に使う星の数
+	const int STAR_MAX_VELOCITY = 30;									//星の速度のランダム生成の振れ幅
+	const int STAR_MAX_VELOCITY_OFFSET = STAR_MAX_VELOCITY / 2;			//星の速度は（-STAR_MAX_VELOCITY_OFFSET ～ STAR_MAX_VELOCITY - STAR_MAX_VELOCITY_OFFSET）の間でランダムに設定される
+	const float STAR_GRAVITY = 1.5f;									//星のエフェクトにかかる重力
 	//エネミー撃破関連固定値
-	static const int SMOKE_MAX_MASS = 2;					//煙エフェクトの最大表示数
+	static const int SMOKE_MAX_MASS = 2;								//煙エフェクトの最大表示数
 	//コイン獲得関連固定値
-	static const int COIN_EFFECT_ANIMATION_MASS = 10;
-	const float COIN_EFFECT_EXTEND_RATE = 2.75f;
+	static const int COIN_EFFECT_ANIMATION_MASS = 10;					//コイン獲得エフェクトのアニメーションのコマ数
+	const float COIN_EFFECT_EXTEND_RATE = 2.75f;						//コイン獲得エフェクトの画像拡大率
 
 	//////////////////////////////////////
 	//　変数
 	//////////////////////////////////////
-	//プレイヤーのキックに使うもの
-	int kickEff;
-	double kickEffExtend;
+	//プレイヤーのキック準備に使うもの
+	int kickPrepareEffect;				//キック準備中のエフェクトのハンドル
+	double kickPrepareEffectExtend;		//キック準備中のエフェクトの画像拡大率
 
 	//キックが一定のスピードに至った時に使うもの（彗星キックと呼称する）
-	int meteoEff[METEO_EFFECT_ANIMATION_MASS];
-	int meteoAnimNum;
+	int meteoEffect[METEO_EFFECT_ANIMATION_MASS];	//彗星キックのエフェクトアニメーションのハンドル
+	int meteoAnimNum;								//そのフレームで表示する彗星キックのアニメーション番号
 
 	//彗星キックヒット時に使うもの
-	int hitMeteoEff[HIT_METEO_EFFECT_ANIMATION_MASS];
-	int hitMeteoAnimNum;
-	int drawCnt;			//同じコマを描画した回数
-	float exploreX;
-	float exploreY;
-	bool drawExploreFlag;
+	int hitMeteoEffect[HIT_METEO_EFFECT_ANIMATION_MASS];	//彗星キックが当たった時のエフェクトのハンドル
+	int hitMeteoAnimNum;									//そのフレームで表示する彗星キックヒット時のアニメーション番号
+	int drawCnt;											//同じコマを描画した回数。（一定コマ数表示した後、次のコマに変える）
+	float hitMeteoEffectPosX;								//表示する座標(x)
+	float hitMeteoEffectPosY;								//表示する座標(y)
+	bool drawHitMeteoEffectFlag;							//表示するか否かのフラグ
 
 	//エネミーの被ダメージ時、プレイヤーHP0時に使うもの
-	int starEff;
-	float starX[STAR_MAX_MASS];
-	float starY[STAR_MAX_MASS];
-	float starVelX[STAR_MAX_MASS];
-	float starVelY[STAR_MAX_MASS];
-	bool criticalEffectFlag;
+	int starEffect;							//エネミー被ダメージ時に使用する★の画像ハンドル
+	float starX[STAR_MAX_MASS];				//星の座標（ｘ）
+	float starY[STAR_MAX_MASS];				//星の座標（ｙ）
+	float starVelocityX[STAR_MAX_MASS];		//星の速度（ｘ）
+	float starVelocityY[STAR_MAX_MASS];		//星の速度（ｙ）
+	bool kickedEffectFlag;					//プレイヤーのキックを食らったかのフラグ
 
 	//プレイヤーHP0時に使うもの
-	int blackSqrGraph;
-	int gameOverTime;
-	int blackOutRate;
-	bool gameOverSetFlag;
+	int gameOverTime;			//プレイヤーのHPが0になった時間を格納
+	int blackOutRate;			//ブラックアウト演出の黒の透過率
+	bool gameOverSetFlag;		//プレイヤーのHPが0になったときにtrue。HP0かつこのフラグがfalse時にSetPlayerDown関数を呼び出すことで初期化（？）を行う
 
 	//エネミーのHPが０になったときに使うもの
-	int smokeEff[10];
+	int smokeEffect[10];
 	int smokeAnimNum[SMOKE_MAX_MASS];	//エフェクトのアニメーション番号
 	int smokeTimer[SMOKE_MAX_MASS];		//エフェクト描画に使うタイマー
-	int smokeNumber;	//エフェクトの番号。SMOKE_MAX_MASS分だけ描画を可能にするため。
+	int smokeNumber;					//エフェクトの番号。SMOKE_MAX_MASS分だけ描画を可能にするため。
 	float smokeX[SMOKE_MAX_MASS];
 	float smokeY[SMOKE_MAX_MASS];
 	bool smokeFlag[SMOKE_MAX_MASS];
 
 	//プレイヤーの被ダメージ時に使うもの
-	int damageEff;
-	float damageEffX;
-	float damageEffY;
+	int damageEffect;
+	float damageEffectX;
+	float damageEffectY;
 
 	//コイン獲得時に使うもの
-	int coinEff[COIN_EFFECT_ANIMATION_MASS];
-	int coinEffAnimNum;
-	bool coinEffTimeFlag;		//true時にエフェクト再生
+	int coinEffect[COIN_EFFECT_ANIMATION_MASS];
+	int coinEffectAnimNum;
+	bool coinEffectTimeFlag;		//true時にエフェクト再生
 
 	//ゲームクリア時に使うもの
 	int whiteSqrGraph;

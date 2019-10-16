@@ -58,6 +58,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		SRand(seed);
 
+#ifndef DEBUG
 		//プレイ回数記録データに日付を記入
 		FILE *a;
 		fopen_s(&a, "resourceTxt/playMass.txt", "a");
@@ -71,6 +72,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 			fclose(a);
 		}
+#endif
 	}
 
 	//ジョイパッドの設定(XBOX360コントローラー限定)
@@ -280,7 +282,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				hitChk.CheckHitPlayerCoin(player_p, &coinMaster, effect_p);
 
 				//コインエフェクトの更新
-				if (effect_p->coinEffTimeFlag)
+				if (effect_p->coinEffectTimeFlag)
 				{
 					effect_p->UpdateCoinEffect();
 				}
@@ -457,7 +459,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					effect_p->DrawMeteoEffect(player_p, &camera);
 
 					//コイン獲得エフェクトの描画
-					if (effect_p->coinEffTimeFlag)
+					if (effect_p->coinEffectTimeFlag)
 					{
 						effect_p->DrawCoinEffect(player_p, &camera);
 					}
@@ -557,6 +559,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             {
                 if (result_p->Init(programControl.replayCnt))
                 {
+#ifndef DEBUG
 					result_p->LoadScore();
 					result_p->SaveScore(player_p->score);
 
@@ -573,6 +576,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 						fclose(a);
 					}
+#endif
 
 					StopSoundMem(game_p->normalBgm);
 					StopSoundMem(game_p->bossBgm);

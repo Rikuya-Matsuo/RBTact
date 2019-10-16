@@ -9,7 +9,7 @@ void Coin::OnObtain(Player * player, Effect *effect, CoinGroup *coinGroup)
 {
 	player->score += ADDED_SCORE;
 	exist = false;
-	effect->coinEffTimeFlag = true;
+	effect->coinEffectTimeFlag = true;
 	PlaySoundMem(coinGroup->se, DX_PLAYTYPE_BACK);
 }
 
