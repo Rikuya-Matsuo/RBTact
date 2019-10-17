@@ -1,4 +1,4 @@
-#define DEBUG
+//#define DEBUG
 
 #include "Dxlib.h"
 #include "Common.h"
@@ -125,11 +125,22 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//タイトルでハイスコアランキングを表示するため、ランキングデータを読み込む
 	result_p->LoadScore();
 
+	//時間
+	int prevTime = GetNowCount() - (int)(1.0f / 60.0f * 1000);
+
 	//---------------------------------//
 	//ゲームループ
 	//---------------------------------//
 	while (true)
 	{
+		// 120Hzでも60Hzで動くよう調整
+		int time = GetNowCount();
+		while ((time - prevTime) / 1000.0f < 1.0f / 60.0f)
+		{
+			time = GetNowCount();
+		}
+		prevTime = time;
+
 		//パッド情報の取得
 		GetJoypadXInputState(DX_INPUT_PAD1, &pad);
 
